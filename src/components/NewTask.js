@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 
 import TaskForm from "./TaskForm";
 
 import "./NewTask.css";
+import useHttp from "../use-http";
 
 const NewTask = ({ updateTask }) => {
+  const { isLoading, err, sendRequest } = useHttp();
   const handleSave = (task) => {
-    fetch("http://localhost:5000/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    sendRequest(
+      {
+        url: "http://localhost:5000/posts",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: task,
       },
-      body: JSON.stringify(task),
-    });
-    updateTask(task);
+      updateTask
+    );
   };
   return (
     <div className="container">
