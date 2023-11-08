@@ -7,6 +7,7 @@ const TaskForm = ({ handleTask }) => {
   const submitForm = (e) => {
     e.preventDefault();
     handleTask(task);
+    setTask({ id: 0, title: "", author: "" });
   };
   const handleChange = (e) => {
     setTask((prev) => {
