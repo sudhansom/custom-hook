@@ -1,0 +1,15 @@
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+input,
+button {
+  padding: 5px;
+  border-radius: 5px;
+}
