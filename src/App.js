@@ -5,29 +5,20 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Tasks from "./components/Tasks";
 import NewTask from "./components/NewTask";
+import useHttp from "./use-http";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [err, setErr] = useState(null);
 
-  const fetchData = () => {
-    setIsLoading(true);
-    try {
-      const res = fetch("http://localhost:5000/posts")
-        .then((res) => res.json())
-        .then((data) => {
-          setTasks(data);
-        });
-    } catch (error) {
-      setErr(error);
-    }
-    setIsLoading(false);
+  const applyData = (data) => {
+    setTasks(data);
   };
 
+  const { isLoading, err, sendRequest } = useHttp();
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    sendRequest({ url: "http://localhost:5000/posts" }, applyData);
+  }, [sendRequest]);
   const updateTask = (task) => {
     setTasks([...tasks, task]);
   };
