@@ -5,3 +5,7 @@
   border-radius: 12px;
   padding: 12px;
 }
+.each-task {
+  display: flex;
+  justify-content: space-between;
+}

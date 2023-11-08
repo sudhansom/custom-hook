@@ -2,10 +2,16 @@ import React from "react";
 
 import TaskForm from "./TaskForm";
 
-const NewTask = () => {
+import "./NewTask.css";
+
+const NewTask = ({ updateTask }) => {
+  const handleSave = (task) => {
+    updateTask(task);
+  };
   return (
     <div className="container">
-      <TaskForm />
+      <h1>Create A Task:</h1>
+      <TaskForm handleTask={handleSave} />
     </div>
   );
 };
