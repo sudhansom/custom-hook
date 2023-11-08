@@ -8,21 +8,28 @@ import NewTask from "./components/NewTask";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [err, setErr] = useState(null);
 
   const fetchData = () => {
-    fetch("http://localhost:5000/posts")
-      .then((res) => res.json())
-      .then((data) => {
-        setTasks(data);
-        console.log(data);
-      });
+    setIsLoading(true);
+    try {
+      const res = fetch("http://localhost:5000/posts")
+        .then((res) => res.json())
+        .then((data) => {
+          setTasks(data);
+        });
+    } catch (error) {
+      setErr(error);
+    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
   const updateTask = (task) => {
-    console.log("task updated", task);
+    setTasks([...tasks, task]);
   };
   return (
     <div className="container">
