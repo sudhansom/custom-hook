@@ -7,7 +7,12 @@ import useHttp from "../use-http";
 
 const NewTask = ({ updateTask }) => {
   const { isLoading, err, sendRequest } = useHttp();
-  const handleSave = (task) => {
+  const applyData = (givenTask, createdTask) => {
+    console.log(givenTask);
+    updateTask(createdTask);
+  };
+  const handleSave = (givenTask) => {
+    let abc;
     sendRequest(
       {
         url: "http://localhost:5000/posts",
@@ -15,9 +20,9 @@ const NewTask = ({ updateTask }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: task,
+        body: givenTask,
       },
-      updateTask
+      applyData.bind(null, givenTask) // we can send updateTask from , so no need to create applyData
     );
   };
   return (
